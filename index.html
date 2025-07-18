@@ -1,128 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jisan.Dev - Cyberpunk Portfolio</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            heading: ['Rajdhani', 'sans-serif'],
-            code: ['Fira Code', 'monospace']
-          },
-          colors: {
-            primary: '#00d2ff',
-            secondary: '#3a7bd5',
-            accent: '#00ffaa',
-            dark: '#0a0a0a'
-          },
-          backgroundImage: {
-            matrix: "url('https://source.unsplash.com/1600x900/?matrix,code')"
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <!-- Custom Fonts -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Jisan.Dev | Cyberpunk Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&family=Fira+Code&display=swap" rel="stylesheet">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <style>
-    body {
-      background-color: #0a0a0a;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: #0f0f0f;
+      color: #00ffe1;
+      font-family: 'Fira Code', monospace;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
       font-family: 'Rajdhani', sans-serif;
-      color: white;
     }
-    .neon-glow {
-      text-shadow: 0 0 5px #00ffaa, 0 0 10px #00d2ff;
+
+    a {
+      color: #00ffe1;
+      text-decoration: none;
     }
-    .glass {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 960px;
+      margin: auto;
     }
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: #00ffaa;
-      position: fixed;
-      top: 0;
-      left: 0;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
+
+    header {
+      text-align: center;
+      padding-top: 4rem;
     }
-    .cursor-ring {
-      width: 30px;
-      height: 30px;
-      border: 2px solid #00ffaa;
-      border-radius: 50%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9998;
-      transition: transform 0.2s ease-out;
+
+    header h1 {
+      font-size: 3rem;
+      text-shadow: 0 0 10px #00ffe1;
+    }
+
+    .glow {
+      color: #00ffe1;
+      text-shadow: 0 0 10px #00ffe1;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #00ffe180;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ffe1;
+    }
+
+    .project {
+      background: #1a1a1a;
+      border: 1px solid #00ffe180;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .project h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media(max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 
-<body class="relative">
-  <!-- Custom Cursor -->
-  <div class="cursor-dot"></div>
-  <div class="cursor-ring"></div>
+<body>
+  <header>
+    <h1 class="glow">Jisan</h1>
+    <p>Data Scientist | Python Enthusiast</p>
+  </header>
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-4 glass z-50">
-    <div class="text-primary text-2xl font-bold neon-glow">Jisan.Dev</div>
-    <ul class="hidden md:flex gap-6 text-white font-semibold">
-      <li><a href="#home" class="hover:text-accent transition">Home</a></li>
-      <li><a href="#about" class="hover:text-accent transition">About</a></li>
-      <li><a href="#skills" class="hover:text-accent transition">Skills</a></li>
-      <li><a href="#projects" class="hover:text-accent transition">Projects</a></li>
-      <li><a href="#contact" class="hover:text-accent transition">Contact</a></li>
-    </ul>
-  </nav>
+  <section class="section" id="about">
+    <h2 class="glow">🚀 About Me</h2>
+    <p>
+      I'm Jisan, a Data Science student at UIU. My mission is to build tools that actually help people — especially in cities like Dhaka.
+      I specialize in Python and love applying it to real-world problems. This site is my digital lab.
+    </p>
+  </section>
 
-  <!-- Hero Section -->
-  <section id="home" class="h-screen flex flex-col justify-center items-center text-center px-6">
-    <h1 class="text-4xl md:text-6xl font-bold neon-glow">> Hello_World()</h1>
-    <p class="text-xl mt-4">I'm <span class="text-primary">Jisan</span>, Full Stack Developer in the Making</p>
-    <p class="text-sm font-code text-accent mt-2">const skills = ["Python", "Django", "Streamlit", "WebGL", "Three.js"]</p>
-    <div class="mt-8 flex gap-4">
-      <button class="px-6 py-3 bg-gradient-to-r from-primary to-secondary text-black font-bold rounded hover:scale-105 transition">View Projects</button>
-      <button class="px-6 py-3 border-2 border-accent text-accent font-bold rounded hover:bg-accent hover:text-black transition">Contact Me</button>
+  <section class="section" id="skills">
+    <h2 class="glow">🧠 Skills</h2>
+    <div class="skills-grid">
+      <div class="card">Python</div>
+      <div class="card">Pandas</div>
+      <div class="card">NumPy</div>
+      <div class="card">Matplotlib</div>
+      <div class="card">Scikit-Learn</div>
+      <div class="card">Django</div>
     </div>
   </section>
 
-  <!-- More sections (About, Skills, Projects, Contact) go here -->
+  <section class="section" id="projects">
+    <h2 class="glow">📂 Projects</h2>
+    <div class="project">
+      <h3>🚌 Dhaka Bus Route Finder</h3>
+      <p>Python + Streamlit based app that helps Dhaka citizens find bus routes with name, stop changes, and map view. (In progress)</p>
+    </div>
+    <div class="project">
+      <h3>📈 Demand Forecasting (Course Project)</h3>
+      <p>Used polynomial regression to forecast product demand with real data. Built in Colab using Pandas and Seaborn.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Crafted with <3 by Jisan | <a href="mailto:ajisan2330152@bsds.uiu.ac.bd">Contact</a></p>
+  </footer>
 
   <script>
-    // Custom cursor script
-    const dot = document.querySelector('.cursor-dot');
-    const ring = document.querySelector('.cursor-ring');
-
-    document.addEventListener('mousemove', e => {
-      dot.style.left = e.pageX + 'px';
-      dot.style.top = e.pageY + 'px';
-      ring.style.left = e.pageX - 15 + 'px';
-      ring.style.top = e.pageY - 15 + 'px';
-    });
+    gsap.from(".glow", {duration: 1.5, opacity: 0, y: -20, stagger: 0.2});
+    gsap.from(".card", {duration: 1, opacity: 0, y: 30, stagger: 0.1});
+    gsap.from(".project", {duration: 1, opacity: 0, x: -30, stagger: 0.2});
   </script>
 </body>
+
 </html>
