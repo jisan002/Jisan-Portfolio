@@ -1,151 +1,403 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Jisan.Dev | Cyberpunk Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&family=Fira+Code&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Jisan.Dev | Cyberpunk Portfolio</title>
+    <meta name="description" content="Jisan's Portfolio - Data Scientist & Python Developer specializing in Data Science, Machine Learning, and AI research.">
+    <meta name="author" content="Jisan">
+    <meta name="keywords" content="Jisan, Data Scientist, Machine Learning, Python Developer, Deep Learning, NLP, AI, Data Science, Pandas, NumPy, Scikit-learn, Django, Portfolio">
 
-    html, body {
-      height: 100%;
-      background: #0f0f0f;
-      color: #00ffe1;
-      font-family: 'Fira Code', monospace;
-      scroll-behavior: smooth;
-    }
+    <!-- Google Fonts: Rajdhani for headings, Fira Code for body/code -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&family=Fira+Code&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    h1, h2, h3 {
-      font-family: 'Rajdhani', sans-serif;
-    }
+    <style>
+        /* Custom CSS for base styles, animations, and specific elements not covered by Tailwind */
+        :root {
+            --background: #0f0f0f;
+            --foreground: #00ffe1;
+            --accent: #00ffe1;
+            --muted-foreground: #a0a0a0;
+            --border: #00ffe140; /* Semi-transparent border for cyberpunk feel */
+            --card-background: #1a1a1a;
+            --card-border: #00ffe180;
+            --text-light: #b3f0ff; /* Lighter text for descriptions */
+            --footer-text: #808080;
+        }
 
-    a {
-      color: #00ffe1;
-      text-decoration: none;
-    }
+        html, body {
+            height: 100%;
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: 'Fira Code', monospace;
+            scroll-behavior: smooth;
+        }
 
-    .section {
-      padding: 4rem 2rem;
-      max-width: 960px;
-      margin: auto;
-    }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--foreground);
+        }
 
-    header {
-      text-align: center;
-      padding-top: 4rem;
-    }
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: transparent;
+            z-index: 50;
+        }
 
-    header h1 {
-      font-size: 3rem;
-      text-shadow: 0 0 10px #00ffe1;
-    }
+        .scroll-progress {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent);
+            transition: width 0.1s linear;
+        }
 
-    .glow {
-      color: #00ffe1;
-      text-shadow: 0 0 10px #00ffe1;
-    }
+        /* Custom glow effect */
+        .glow {
+            text-shadow: 0 0 10px var(--accent);
+        }
 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
-    }
+        /* Floating background elements animation */
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.2; }
+            25% { transform: translate(10px, -10px) rotate(5deg); opacity: 0.25; }
+            50% { transform: translate(0, 0) rotate(0deg); opacity: 0.2; }
+            75% { transform: translate(-10px, 10px) rotate(-5deg); opacity: 0.25; }
+            100% { transform: translate(0, 0) rotate(0deg); opacity: 0.2; }
+        }
 
-    .card {
-      background: #1a1a1a;
-      border: 1px solid #00ffe180;
-      padding: 1rem;
-      text-align: center;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
+        .animate-float {
+            animation-name: float;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-direction: alternate;
+        }
 
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #00ffe1;
-    }
+        /* Specific styles for card and project hover effects */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--accent);
+        }
 
-    .project {
-      background: #1a1a1a;
-      border: 1px solid #00ffe180;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 8px;
-    }
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--accent);
+        }
 
-    .project h3 {
-      margin-bottom: 0.5rem;
-    }
+        /* Mobile menu specific styles */
+        #mobile-menu.open {
+            display: block;
+        }
 
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.8rem;
-    }
-
-    @media(max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+        /* Ensure min-h-screen-dynamic works on mobile */
+        .min-h-screen-dynamic {
+            min-height: 100vh; /* Fallback for browsers that don't support dvh */
+            min-height: 100dvh;
+        }
+    </style>
 </head>
 
-<body>
-  <header>
-    <h1 class="glow">Jisan</h1>
-    <p>Data Scientist | Python Enthusiast</p>
-  </header>
-
-  <section class="section" id="about">
-    <h2 class="glow">🚀 About Me</h2>
-    <p>
-      I'm Jisan, a Data Science student at UIU. My mission is to build tools that actually help people — especially in cities like Dhaka.
-      I specialize in Python and love applying it to real-world problems. This site is my digital lab.
-    </p>
-  </section>
-
-  <section class="section" id="skills">
-    <h2 class="glow">🧠 Skills</h2>
-    <div class="skills-grid">
-      <div class="card">Python</div>
-      <div class="card">Pandas</div>
-      <div class="card">NumPy</div>
-      <div class="card">Matplotlib</div>
-      <div class="card">Scikit-Learn</div>
-      <div class="card">Django</div>
+<body class="bg-background text-foreground overflow-x-hidden">
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
     </div>
-  </section>
 
-  <section class="section" id="projects">
-    <h2 class="glow">📂 Projects</h2>
-    <div class="project">
-      <h3>🚌 Dhaka Bus Route Finder</h3>
-      <p>Python + Streamlit based app that helps Dhaka citizens find bus routes with name, stop changes, and map view. (In progress)</p>
-    </div>
-    <div class="project">
-      <h3>📈 Demand Forecasting (Course Project)</h3>
-      <p>Used polynomial regression to forecast product demand with real data. Built in Colab using Pandas and Seaborn.</p>
-    </div>
-  </section>
+    <!-- Main Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b-2 border-border" role="banner" aria-label="Main navigation">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-lg sm:text-xl font-mono font-bold hover:text-accent transition-colors uppercase tracking-wider" aria-label="Go to home section">Jisan</a>
+                <div class="flex items-center space-x-4 sm:space-x-6">
+                    <!-- Desktop Navigation Menu -->
+                    <div class="hidden sm:flex space-x-4 lg:space-x-8" role="menubar" aria-label="Desktop navigation menu">
+                        <a href="#home" class="font-mono text-xs sm:text-sm transition-colors uppercase text-accent border-b-2 border-accent" role="menuitem" aria-label="Go to home section" aria-current="page">Home</a>
+                        <a href="#about" class="font-mono text-xs sm:text-sm transition-colors uppercase text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to about section">About</a>
+                        <a href="#skills" class="font-mono text-xs sm:text-sm transition-colors uppercase text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to skills section">Skills</a>
+                        <a href="#projects" class="font-mono text-xs sm:text-sm transition-colors uppercase text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to projects section">Projects</a>
+                        <a href="#contact" class="font-mono text-xs sm:text-sm transition-colors uppercase text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to contact section">Contact</a>
+                    </div>
+                    <!-- Mobile Menu Toggle -->
+                    <div class="sm:hidden">
+                        <button id="mobile-menu-toggle" class="font-mono text-sm text-muted-foreground hover:text-accent transition-colors" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle mobile navigation menu">MENU</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="hidden sm:hidden mt-4 pb-4 border-t border-border pt-4" role="menu" aria-label="Mobile navigation menu">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="font-mono text-sm transition-colors uppercase text-left text-accent" role="menuitem" aria-label="Go to home section" aria-current="page">Home</a>
+                    <a href="#about" class="font-mono text-sm transition-colors uppercase text-left text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to about section">About</a>
+                    <a href="#skills" class="font-mono text-sm transition-colors uppercase text-left text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to skills section">Skills</a>
+                    <a href="#projects" class="font-mono text-sm transition-colors uppercase text-left text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to projects section">Projects</a>
+                    <a href="#contact" class="font-mono text-sm transition-colors uppercase text-left text-muted-foreground hover:text-accent" role="menuitem" aria-label="Go to contact section">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <footer>
-    <p>Crafted with <3 by Jisan | <a href="mailto:ajisan2330152@bsds.uiu.ac.bd">Contact</a></p>
-  </footer>
+    <!-- Left-side Breadcrumb Navigation (Desktop Only) -->
+    <nav aria-label="Breadcrumb navigation" class="sr-only lg:not-sr-only fixed left-4 top-1/2 transform -translate-y-1/2 z-40">
+        <ol class="flex flex-col space-y-2" role="list">
+            <li><a href="#home" class="block w-3 h-3 rounded-full border-2 transition-all duration-300 bg-accent border-accent scale-125" aria-label="Go to Home section" title="Home" aria-current="page"></a><span class="sr-only">Current section: Home</span></li>
+            <li><a href="#about" class="block w-3 h-3 rounded-full border-2 transition-all duration-300 border-accent/50 hover:border-accent hover:bg-accent/20" aria-label="Go to About section" title="About"></a></li>
+            <li><a href="#skills" class="block w-3 h-3 rounded-full border-2 transition-all duration-300 border-accent/50 hover:border-accent hover:bg-accent/20" aria-label="Go to Skills section" title="Skills"></a></li>
+            <li><a href="#projects" class="block w-3 h-3 rounded-full border-2 transition-all duration-300 border-accent/50 hover:border-accent hover:bg-accent/20" aria-label="Go to Projects section" title="Projects"></a></li>
+            <li><a href="#contact" class="block w-3 h-3 rounded-full border-2 transition-all duration-300 border-accent/50 hover:border-accent hover:bg-accent/20" aria-label="Go to Contact section" title="Contact"></a></li>
+        </ol>
+    </nav>
 
-  <script>
-    gsap.from(".glow", {duration: 1.5, opacity: 0, y: -20, stagger: 0.2});
-    gsap.from(".card", {duration: 1, opacity: 0, y: 30, stagger: 0.1});
-    gsap.from(".project", {duration: 1, opacity: 0, x: -30, stagger: 0.2});
-  </script>
+    <main class="min-h-screen bg-background text-foreground relative overflow-x-hidden" role="main">
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen-dynamic w-full flex items-center justify-center relative scroll-smooth text-center px-4">
+            <!-- Floating background elements -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+                <div class="absolute top-16 left-2 sm:left-6 md:left-10 text-accent/20 font-mono text-xs sm:text-sm lg:text-base transform -rotate-[23deg] animate-float" style="animation-delay:0s;animation-duration:8.3s">$\theta = \theta - \alpha\nabla J(\theta)$</div>
+                <div class="absolute top-28 right-8 sm:right-14 md:right-20 text-accent/15 font-mono text-xs sm:text-sm lg:text-base transform rotate-[17deg] animate-float" style="animation-delay:2.7s;animation-duration:9.8s">$L = -\sum(y \cdot \log(\hat{y}))$</div>
+                <div class="absolute top-[28%] left-12 sm:left-20 md:left-28 transform rotate-[12deg] hidden sm:block animate-float" style="animation-delay:1.2s;animation-duration:7.6s">
+                    <svg width="60" height="35" class="text-accent/15">
+                        <polyline points="5,30 15,25 25,15 35,20 45,8 55,12" fill="none" stroke="currentColor" stroke-width="1.5"></polyline>
+                        <circle cx="5" cy="30" r="1" fill="currentColor"></circle>
+                        <circle cx="15" cy="25" r="1" fill="currentColor"></circle>
+                        <circle cx="25" cy="15" r="1" fill="currentColor"></circle>
+                        <circle cx="35" cy="20" r="1" fill="currentColor"></circle>
+                        <circle cx="45" cy="8" r="1" fill="currentColor"></circle>
+                        <circle cx="55" cy="12" r="1" fill="currentColor"></circle>
+                    </svg>
+                </div>
+                <div class="absolute top-[42%] right-4 sm:right-8 md:right-16 transform rotate-[8deg] hidden sm:block animate-float" style="animation-delay:3.9s;animation-duration:10.2s">
+                    <svg width="50" height="40" class="text-accent/20">
+                        <rect x="5" y="25" width="6" height="15" fill="currentColor" opacity="0.7"></rect>
+                        <rect x="15" y="15" width="6" height="25" fill="currentColor" opacity="0.5"></rect>
+                        <rect x="25" y="20" width="6" height="20" fill="currentColor" opacity="0.8"></rect>
+                        <rect x="35" y="10" width="6" height="30" fill="currentColor" opacity="0.6"></rect>
+                    </svg>
+                </div>
+                <div class="absolute bottom-32 left-16 sm:left-24 md:left-32 text-accent/12 font-mono text-xs sm:text-sm lg:text-base transform -rotate-[19deg] animate-float" style="animation-delay:5.1s;animation-duration:8.7s">$A = U\Sigma V^T$</div>
+                <div class="absolute bottom-40 right-2 sm:right-12 md:right-18 transform rotate-[26deg] animate-float" style="animation-delay:0.8s;animation-duration:9.4s">
+                    <svg width="55" height="45" class="text-accent/18">
+                        <circle cx="10" cy="35" r="1.5" fill="currentColor" opacity="0.6"></circle>
+                        <circle cx="18" cy="25" r="1.5" fill="currentColor" opacity="0.8"></circle>
+                        <circle cx="26" cy="30" r="1.5" fill="currentColor" opacity="0.5"></circle>
+                        <circle cx="34" cy="20" r="1.5" fill="currentColor" opacity="0.7"></circle>
+                        <circle cx="42" cy="32" r="1.5" fill="currentColor" opacity="0.9"></circle>
+                        <circle cx="50" cy="22" r="1.5" fill="currentColor" opacity="0.6"></circle>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="relative z-10 p-6 bg-background/70 backdrop-blur-sm rounded-lg border border-border max-w-2xl mx-auto">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 glow">Jisan.Dev</h1>
+                <p class="text-lg sm:text-xl lg:text-2xl text-text-light mb-6">Data Scientist | Python Enthusiast</p>
+                <p class="text-md sm:text-lg text-muted-foreground">Building AI Skills Through Code, Research, and Community</p>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="section">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6 glow">🚀 About Me</h2>
+            <p class="text-lg leading-relaxed text-text-light">
+                I'm Jisan, a passionate Data Science student at United International University (UIU). My core mission is to develop practical tools and solutions that genuinely benefit people, particularly focusing on the unique challenges and opportunities within cities like Dhaka.
+                I specialize in Python, leveraging its extensive ecosystem for data analysis, machine learning, and application development. This website serves as my digital laboratory, showcasing my journey, projects, and evolving expertise in the field of data science and artificial intelligence.
+            </p>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6 glow">🧠 Skills</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Python</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Pandas</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">NumPy</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Matplotlib</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Scikit-Learn</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Django</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">SQL</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Git</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Machine Learning</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Deep Learning</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Natural Language Processing</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Data Visualization</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Streamlit</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">NLTK</div>
+                <div class="card bg-card-background border border-card-border p-4 text-center rounded-lg text-lg font-mono text-text-light transition-all duration-300">Dash</div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6 glow">📂 Projects</h2>
+            <div class="space-y-8">
+                <div class="project bg-card-background border border-card-border p-6 rounded-lg transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-2 text-accent">🚌 Dhaka Bus Route Finder</h3>
+                    <p class="text-text-light leading-relaxed">A Python + Streamlit based application designed to help Dhaka citizens find optimal bus routes, including details on name, stop changes, and a map view for better navigation. This project is currently in progress, aiming to simplify urban commuting.</p>
+                </div>
+                <div class="project bg-card-background border border-card-border p-6 rounded-lg transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-2 text-accent">📈 Demand Forecasting (Course Project)</h3>
+                    <p class="text-text-light leading-relaxed">Developed a robust demand forecasting model using polynomial regression on real-world product data. The implementation was carried out in Google Colab, effectively leveraging Pandas for data manipulation and Seaborn for insightful visualizations to predict future demand trends.</p>
+                </div>
+                <div class="project bg-card-background border border-card-border p-6 rounded-lg transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-2 text-accent">💬 Simple Chatbot using NLTK</h3>
+                    <p class="text-text-light leading-relaxed">A foundational rule-based chatbot implemented in Python, utilizing the Natural Language Toolkit (NLTK) for efficient text processing, tokenization, and pattern matching. This project demonstrates basic conversational AI principles.</p>
+                </div>
+                <div class="project bg-card-background border border-card-border p-6 rounded-lg transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-2 text-accent">📊 Interactive Dashboard with Dash</h3>
+                    <p class="text-text-light leading-relaxed">Created a dynamic and interactive web dashboard using Python's Dash framework. This dashboard visualizes complex sales data, providing users with intuitive filtering options and the ability to explore various trends and insights interactively.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6 glow">📧 Get in Touch</h2>
+            <p class="text-lg leading-relaxed text-text-light mb-8">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out!
+            </p>
+            <a href="mailto:ajisan2330152@bsds.uiu.ac.bd" class="inline-block bg-accent text-background px-8 py-3 rounded-full text-lg font-bold uppercase tracking-wider transition-all duration-300 hover:bg-opacity-80 hover:shadow-lg hover:shadow-accent/50">
+                Email Me
+            </a>
+            <div class="mt-8 text-muted-foreground text-sm">
+                <p>Connect with me on:</p>
+                <div class="flex justify-center space-x-4 mt-2">
+                    <!-- Placeholder for social media links if you want to add them later -->
+                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-foreground transition-colors" aria-label="GitHub Profile">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.702-2.782.602-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.084 2.902.829.091-.645.356-1.084.64-1.336-2.22-.253-4.555-1.113-4.555-4.93 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.268 2.75 1.022A9.614 9.614 0 0112 6.865c.85.004 1.7.114 2.504.337 1.909-1.29 2.747-1.022 2.747-1.022.546 1.379.202 2.398.099 2.65.64.698 1.028 1.591 1.028 2.682 0 3.823-2.339 4.675-4.562 4.921.357.307.676.917.676 1.854 0 1.336-.012 2.419-.012 2.747 0 .265.179.576.684.478C21.137 20.188 24 16.421 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-foreground transition-colors" aria-label="LinkedIn Profile">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://x.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-foreground transition-colors" aria-label="X (Twitter) Profile">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.13l-6.067-8.06L5.325 22.25H1.018l7.78-8.891L1.018 2.25H8.08l4.713 6.231L18.244 2.25zm-2.97 1.25h-1.64L3.986 21.25H5.4z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript for Mobile Menu Toggle and Scroll Progress -->
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden', isExpanded);
+            mobileMenu.classList.toggle('open', !isExpanded); // Add 'open' class for styling if needed
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const toggleButton = document.getElementById('mobile-menu-toggle');
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('open');
+                toggleButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrolled + '%';
+        });
+
+        // GSAP Animations
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initial load animations for header
+        gsap.from(".glow", {duration: 1.5, opacity: 0, y: -30, ease: "power3.out", stagger: 0.2});
+        gsap.from(".relative.z-10 p", {duration: 1.5, opacity: 0, y: 20, ease: "power3.out", stagger: 0.2, delay: 0.5});
+
+        // Section animations on scroll
+        gsap.utils.toArray(".section").forEach(section => {
+            gsap.from(section.children, {
+                opacity: 0,
+                y: 50,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%", // When the top of the section hits 80% of the viewport
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse", // Play on enter, reverse on leave back
+                }
+            });
+        });
+
+        // Card and Project animations (can be combined with section animations or separate)
+        gsap.utils.toArray(".card").forEach((card, i) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 30,
+                ease: "back.out(1.7)",
+                delay: i * 0.05, // Stagger effect for cards
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse",
+                }
+            });
+        });
+
+        gsap.utils.toArray(".project").forEach((project, i) => {
+            gsap.from(project, {
+                opacity: 0,
+                x: -50,
+                ease: "power3.out",
+                delay: i * 0.1, // Stagger effect for projects
+                scrollTrigger: {
+                    trigger: project,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse",
+                }
+            });
+        });
+
+        // Update active link in breadcrumb navigation on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const breadcrumbLinks = document.querySelectorAll('nav.lg\\:not-sr-only ol li a');
+
+        window.addEventListener('scroll', () => {
+            let currentActive = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - document.querySelector('nav').offsetHeight; // Account for fixed header
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    currentActive = section.getAttribute('id');
+                }
+            });
+
+            breadcrumbLinks.forEach(link => {
+                link.classList.remove('bg-accent', 'border-accent', 'scale-125');
+                link.classList.add('border-accent/50', 'hover:border-accent', 'hover:bg-accent/20');
+                link.removeAttribute('aria-current');
+
+                if (link.getAttribute('href').includes(currentActive)) {
+                    link.classList.add('bg-accent', 'border-accent', 'scale-125');
+                    link.classList.remove('border-accent/50', 'hover:border-accent', 'hover:bg-accent/20');
+                    link.setAttribute('aria-current', 'page');
+                }
+            });
+        });
+
+        // Initial check for active section on load
+        window.dispatchEvent(new Event('scroll'));
+    </script>
 </body>
 
 </html>
