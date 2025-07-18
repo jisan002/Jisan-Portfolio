@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jisan.Dev - Cyberpunk Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Rajdhani', 'sans-serif'],
+            code: ['Fira Code', 'monospace']
+          },
+          colors: {
+            primary: '#00d2ff',
+            secondary: '#3a7bd5',
+            accent: '#00ffaa',
+            dark: '#0a0a0a'
+          },
+          backgroundImage: {
+            matrix: "url('https://source.unsplash.com/1600x900/?matrix,code')"
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&family=Fira+Code&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #0a0a0a;
+      font-family: 'Rajdhani', sans-serif;
+      color: white;
+    }
+    .neon-glow {
+      text-shadow: 0 0 5px #00ffaa, 0 0 10px #00d2ff;
+    }
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ffaa;
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .cursor-ring {
+      width: 30px;
+      height: 30px;
+      border: 2px solid #00ffaa;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.2s ease-out;
+    }
+  </style>
+</head>
+
+<body class="relative">
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-4 glass z-50">
+    <div class="text-primary text-2xl font-bold neon-glow">Jisan.Dev</div>
+    <ul class="hidden md:flex gap-6 text-white font-semibold">
+      <li><a href="#home" class="hover:text-accent transition">Home</a></li>
+      <li><a href="#about" class="hover:text-accent transition">About</a></li>
+      <li><a href="#skills" class="hover:text-accent transition">Skills</a></li>
+      <li><a href="#projects" class="hover:text-accent transition">Projects</a></li>
+      <li><a href="#contact" class="hover:text-accent transition">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="h-screen flex flex-col justify-center items-center text-center px-6">
+    <h1 class="text-4xl md:text-6xl font-bold neon-glow">> Hello_World()</h1>
+    <p class="text-xl mt-4">I'm <span class="text-primary">Jisan</span>, Full Stack Developer in the Making</p>
+    <p class="text-sm font-code text-accent mt-2">const skills = ["Python", "Django", "Streamlit", "WebGL", "Three.js"]</p>
+    <div class="mt-8 flex gap-4">
+      <button class="px-6 py-3 bg-gradient-to-r from-primary to-secondary text-black font-bold rounded hover:scale-105 transition">View Projects</button>
+      <button class="px-6 py-3 border-2 border-accent text-accent font-bold rounded hover:bg-accent hover:text-black transition">Contact Me</button>
+    </div>
+  </section>
+
+  <!-- More sections (About, Skills, Projects, Contact) go here -->
+
+  <script>
+    // Custom cursor script
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+
+    document.addEventListener('mousemove', e => {
+      dot.style.left = e.pageX + 'px';
+      dot.style.top = e.pageY + 'px';
+      ring.style.left = e.pageX - 15 + 'px';
+      ring.style.top = e.pageY - 15 + 'px';
+    });
+  </script>
+</body>
+</html>
